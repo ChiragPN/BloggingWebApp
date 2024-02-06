@@ -4,6 +4,7 @@ import email_icon from '../assets/icons/email.svg';
 import password_icon from '../assets/icons/password.svg';
 import { useAuth } from '../security/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { register } from '../api/BlogPostApiService';
 
 function SignUpSignIn() {
     const [isSignIn, setisSignIn] = useState(true);
@@ -30,23 +31,36 @@ function SignUpSignIn() {
         });
     };
 
-    const handleSubmit = (e) => {
+    async function handleSubmit(e){
         e.preventDefault();
         if (isSignIn) {
-            if(authContext.authenticate(formData)){
+            if(await authContext.authenticate(formData)){
                 navigate("/")
             }else{
                 setshowErrorMessage(true)
             }
         } else {
-            // navigate("/profile")
-            console.log("Your Form Data ", formData)
+
+            register(formData.fullName, formData.email, formData.password)
+
+            // try {
+            //     const response = register(formData.name, formData.email, formData.password)
+            //     if (response.status === 201) {
+            //         console.log(response);
+            //     } else {
+            //         setshowErrorMessage(true)
+            //         console.log(response);
+            //     }
+            // }catch(error) {
+            //     console.log(error);
+            //     setshowErrorMessage(true)
+            // }
         }
     }
 
     return (
         <div>
-            <div className="container flex flex-col justify-center m-auto mt-20 bg-white w-[400px] md:w-[600px] rounded-lg shadow-2xl">
+            <div className="container flex flex-col justify-center m-auto mt-20 mb-20 bg-white w-[400px] md:w-[600px] rounded-lg shadow-2xl">
                 <div className="header flex flex-col items-center gap-2 w-[100%] mt-8">
                     <div className="text text-[#1b5a7c] text-[1.7rem] md:text-4xl font-bold mt-1 md:mt-2">{isSignIn ? "Please Login To Continue" : "Create an Account"}</div>
                 </div>

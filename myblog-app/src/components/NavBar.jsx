@@ -7,6 +7,7 @@ import userImage from "../assets/images/logo512.png"
 import '../App.css';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../security/AuthContext';
+import { register } from '../api/BlogPostApiService';
 
 function NavBar() {
 
@@ -19,6 +20,34 @@ function NavBar() {
     const toogleMobileMenuOpen = () => {
         setisMobileMenuOpen(!isMobileMenuOpen)
     }
+    const toggleUserMenuOpen = () => {
+        setisUserMenuOpen(!isUserMenuOpen)
+    }
+
+    function callRegister() {
+        // try {
+        //     const response = await register({
+        //         fullName: 'Chirag',
+        //         email: 'chirag@gmail.com',
+        //         password: 'Chirag@121',
+        //     })
+        //     if (response.status === 201) {
+        //         console.log(response);
+        //     } else {
+                
+        //         console.log(response);
+        //     }
+        // }catch(error) {
+        //     console.log(error);
+            
+        // }
+        // register({
+        //     'Sharath',
+        //     'sharath@gmail.com',
+        //     'Sharath@121'
+        // })      
+    }
+
     const logout = () => {
         authContext.logout()
         if(isUserMenuOpen) setisUserMenuOpen(!isUserMenuOpen)
@@ -54,7 +83,7 @@ function NavBar() {
                             </div>
                         )}
                         {isAuthenticated && <div onClick={() => setisUserMenuOpen(!isUserMenuOpen)} className='border rounded-full cursor-pointer'><img className='p-1 w-10 rounded-full' src={userImage} alt="UserIcon" /></div>}
-                        {!isAuthenticated && <Link to="/signup-signin"><button className="py-2 px-6 rounded-lg bg-[#427d9d] text-white font-bold hover:bg-[#376d8b]">Sign in</button></Link>}
+                        {!isAuthenticated && <Link to="/signup-signin"><button className="py-2 px-6 rounded-lg bg-[#427d9d] text-white font-bold hover:bg-[#376d8b]" onClick={callRegister}>Sign in</button></Link>}
                     </div>
 
                     {isUserMenuOpen && (
@@ -67,10 +96,11 @@ function NavBar() {
                                         <h1>user@gmail.com</h1>
                                     </div>
                                 </div>
-                                <li><Link to="/profile">Profile</Link></li>
+                                <li><Link to="/profile" onClick={toggleUserMenuOpen}>Profile</Link></li>
                                 <li><Link to="/">Settings</Link></li>
                                 <li><Link to="/">Saved Post</Link></li>
                                 <li><Link to="/">Membership</Link></li>
+                                <li><Link to="/hello-world" onClick={toggleUserMenuOpen}>Hello World Api </Link></li>
                                 <li><Link to="/" onClick={logout}>Logout</Link></li>
                             </ul>
                         </div>

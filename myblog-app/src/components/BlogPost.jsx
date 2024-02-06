@@ -4,6 +4,7 @@ import profile from '../assets/images/logo512.png';
 import { Link } from 'react-router-dom'
 
 function BlogPost({ post }) {
+    
     return (
             <div className="bg-white my-6 mx-4 max-h-auto p-4 shadow-lg rounded-lg">
                 <Link to={`/post/${post.id}`}>
@@ -24,8 +25,8 @@ function BlogPost({ post }) {
                     </div>
                     
                     <div>
-                        <div className='btn bg-[#1b5a7c] flex justify-center items-center w-28 h-10 rounded-lg mt-auto'>
-                            <button className='font-medium text-white'>Category</button>
+                        <div className='btn border border-solid border-LightGray flex justify-center items-center w-28 h-10 rounded-lg mt-auto'>
+                            <button className='font-medium text-[#313131]'>Category</button>
                         </div>
                     </div>
                 </div>
